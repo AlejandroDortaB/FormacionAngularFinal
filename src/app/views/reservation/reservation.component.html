@@ -1,0 +1,29 @@
+<h2>Nombre restauran</h2>
+<div class="container">
+  <form (submit)="sendReservation()">
+    <h2>Realizar Reserva</h2>
+        <div>
+          <label for="npersons">Numero de personas</label>
+          <input type="number" id="npersons" [(ngModel)]="nPersons" name="npersons" required>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Seleccione la fecha</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Selecciona la hora </mat-label>
+            <mat-select>
+              @for (time of times; track time) {
+                <mat-option [value]="time">{{time}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button>Reservar</button>
+  </form>    
+</div>
