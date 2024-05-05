@@ -17,7 +17,7 @@ export class AuthService {
       tap((result:LoginResponse)=>{
         console.log(result);
         sessionStorage.setItem("token",result.token)
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('restaurantes');
       })
     ).subscribe({
       next:()=>{},

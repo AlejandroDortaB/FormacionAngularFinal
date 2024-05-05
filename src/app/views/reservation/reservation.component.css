@@ -6,8 +6,15 @@
  
   }
   
-
+.img-box{
+  margin-right: 10px;
+}  
+.my-img{
+  width: 762px;
+  height: 590px;
+}
   form {
+    margin-left: 80px;
     width: 300px;
     padding: 40px;
     background-color: #ffffff;

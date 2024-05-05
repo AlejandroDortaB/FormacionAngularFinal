@@ -1,5 +1,11 @@
-<h2>Nombre restauran</h2>
+<app-navbar></app-navbar>
 <div class="container">
+ <span  class="img-box">
+    <div>
+      <h1>{{currentRestaurant.name}}</h1>
+      <img src={{restaurantService.getImgRestaurent(currentRestaurant.imgIndex)}} alt=""  class="my-img">
+    </div> 
+  </span> 
   <form (submit)="sendReservation()">
     <h2>Realizar Reserva</h2>
         <div>

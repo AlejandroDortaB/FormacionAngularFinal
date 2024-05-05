@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { RestaurantOptionBoxComponent } from "../../components/restaurant-option-box/restaurant-option-box.component";
+import { RestaurantService } from '../../services/restaurant.service';
 
 
 @Component({
@@ -8,8 +9,24 @@ import { RestaurantOptionBoxComponent } from "../../components/restaurant-option
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [RestaurantOptionBoxComponent]
+    imports: [RestaurantOptionBoxComponent,NavbarComponent,]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+    
+    private  restaurantService= inject (RestaurantService); 
 
+    restaurants:any[]=[];
+
+    ngOnInit(): void {
+         this.restaurantService.getAllRestaurant().subscribe({
+            next:(result:any)=>{
+             this.restaurants = result;
+             console.log(this.restaurants)
+            },
+            error:(error)=>{
+             
+            }
+          })
+        
+    }
 }

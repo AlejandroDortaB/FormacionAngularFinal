@@ -7,7 +7,8 @@ import { ReservationComponent } from './views/reservation/reservation.component'
 export const routes: Routes = [
     {path:"login",component:LoginComponent},
     {path:"register",component:RegisterComponent},
-    {path:"home",component:HomeComponent},
-    {path:"reservation",component:ReservationComponent},
-    {path: '', component: ReservationComponent },
+    {path:"restaurantes",component:HomeComponent},
+    {path:"restaurante/:id",component:ReservationComponent},
+    {path: '', component: LoginComponent },
+    {path: '**', component: LoginComponent },
 ];

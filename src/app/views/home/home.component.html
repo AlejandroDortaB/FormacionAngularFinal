@@ -1,20 +1,16 @@
-<h2>Restaurantes</h2>
-<div class="row">
-    <div class="col-3">
-        <app-restaurant-option-box></app-restaurant-option-box>
-    </div>
-    <div class="col-3">
-        <app-restaurant-option-box></app-restaurant-option-box>
-    </div>
-    <div class="col-3">
-        <app-restaurant-option-box></app-restaurant-option-box>
-    </div>
-    <div class="col-3">
-        <app-restaurant-option-box></app-restaurant-option-box>
-    </div>
-    <div class="col-3">
-        <app-restaurant-option-box></app-restaurant-option-box>
-    </div>
+<app-navbar></app-navbar>
+<div class="header">
+    Restaurantes
 </div>
+<div class="container">
+    <div class="row">
+        @for (item of restaurants; track $index) {
+            <div class="col-4">
+                <app-restaurant-option-box  [restaurant]="item" ></app-restaurant-option-box>
+            </div>
+        }   
+    </div> 
+</div>
+
 
 
