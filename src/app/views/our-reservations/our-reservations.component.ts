@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { UserService } from '../../services/user.service';
+import { Reservation } from '../../interfaces/reservation';
 
 @Component({
   selector: 'app-our-reservations',
@@ -13,10 +14,10 @@ export class OurReservationsComponent implements OnInit {
 
   
   protected  userService= inject (UserService);
-  reservations:any[]=[];
+  reservations:Reservation[]=[];
 
   ngOnInit(): void {
-    this.userService.getUserReservations().subscribe((result:any)=>{
+    this.userService.getUserReservations().subscribe((result:Reservation[])=>{
       console.log("result",result)
       this.reservations = result;
     })

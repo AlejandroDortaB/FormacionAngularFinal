@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Time } from '@angular/common';
+import { Restaurant } from '../interfaces/restaurant';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RestaurantService {
   imagenesRestaurantes:string[]=["./assets/res3.jpg",
     "./assets/res1.jpg","./assets/res2.webp","./assets/res4.webp"];
 
-  currentrestaurant:any;
+  currentrestaurant!: Restaurant;
 
 
   constructor(private http: HttpClient) {
@@ -25,12 +26,12 @@ export class RestaurantService {
     return this.imagenesRestaurantes[index%4];
   }
 
-  getAllRestaurant():Observable<Object>{
-   return this.http.get('http://localhost:8080/api/v1/restaurant')
+  getAllRestaurant():Observable<Restaurant[]>{
+   return this.http.get<Restaurant[]>('http://localhost:8080/api/v1/restaurant')
   }
 
-  getRestaurantById(id:number):Observable<Object>{
-    return this.http.get('http://localhost:8080/api/v1/restaurant/'+id)
+  getRestaurantById(id:number):Observable<Restaurant>{
+    return this.http.get<Restaurant>('http://localhost:8080/api/v1/restaurant/'+id)
    }
 
    generateReservation(nPersons:number,date:string,time:string,restaurantId:number){
@@ -42,9 +43,7 @@ export class RestaurantService {
       "restaurant": restaurantId,
       "user":userId
     }
-    console.log(body);
     this.http.post('http://localhost:8080/api/v1/reservation',body).subscribe((result)=>{
-      console.log("result",result)
     })
    }
  

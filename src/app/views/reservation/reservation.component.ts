@@ -9,6 +9,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { RestaurantService } from '../../services/restaurant.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
+import { Restaurant } from '../../interfaces/restaurant';
 
 
 @Component({
@@ -33,11 +34,11 @@ export class ReservationComponent implements OnInit{
   protected dateSelected!: string;
   protected timeSelected:string="";
   protected nPersons: number=1;
-  times:any=[["8:00 AM","8:00:00"],["9:00 AM","9:00:00"], ["10:00 AM","10:00:00"], ["11:00 AM","11:00:00"], ["12:00 AM","12:00:00"],["1:00 PM","13:00:00"],
+  times: [string, string][]=[["8:00 AM","8:00:00"],["9:00 AM","9:00:00"], ["10:00 AM","10:00:00"], ["11:00 AM","11:00:00"], ["12:00 AM","12:00:00"],["1:00 PM","13:00:00"],
    ["2:00 PM","14:00:00"],["3:00 PM","15:00:00"],["4:00 PM","16:00:00"],["5:00 PM","17:00:00"],["6:00 PM","18:00:00"],["7:00 PM","19:00:00"],
    ["8:00 PM","20:00:00"],["9:00 PM","21:00:00"]];
   protected  restaurantService= inject (RestaurantService);
-  currentRestaurant:any;
+  currentRestaurant!: Restaurant;
   
   constructor(private route:ActivatedRoute,private datePipe: DatePipe){
 
@@ -50,14 +51,11 @@ export class ReservationComponent implements OnInit{
    })
    
   }
-  selectTime(time: any) {
+  selectTime(time:[string, string]) {
     this.timeSelected=time[1];
     }
 
   sendReservation() {
-    console.log("nPersons",this.nPersons)
-    console.log("dateSelected",this.dateSelected)
-    console.log("timeSelected",this.timeSelected)
     this.restaurantService.generateReservation(this.nPersons,this.dateSelected,this.timeSelected,this.currentRestaurant.id);
     }
 

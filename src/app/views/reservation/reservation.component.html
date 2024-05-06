@@ -6,7 +6,7 @@
       <img src={{restaurantService.getImgRestaurent(currentRestaurant.imgIndex)}} alt=""  class="my-img">
     </div>
     <br>
-    <p class="description">{{currentRestaurant.description}}</p> 
+    <p class="description">{{currentRestaurant!.description}}</p> 
   </span> 
   <form (submit)="sendReservation()">
     <h2>Realizar Reserva</h2>
