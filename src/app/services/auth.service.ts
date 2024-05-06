@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginResponse } from '../interfaces/login-response';
 import { GeneralResponse } from '../interfaces/general-response';
+import { jwtDecode } from "jwt-decode";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient,private router: Router ) {}
 
   login(username:string,password:string){
     this.http.post<LoginResponse>('http://localhost:8080/auth/login',{username:username,password:password}).pipe(
@@ -47,5 +49,10 @@ export class AuthService {
 
   retrictedPetition():Observable<GeneralResponse>{
     return this.http.post<GeneralResponse>('http://localhost:8080/api/v1/demo',{})
+  }
+  
+  getUserIdFromToken(){
+    const decodedToken:any = jwtDecode(sessionStorage.getItem("token")!);
+    return decodedToken.id;
   }
 }
