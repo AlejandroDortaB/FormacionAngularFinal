@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<div class="container">
+    <br>
+    <h1>Mis reservas</h1>
+    <br>
+    <div >
+        <div class="body">  
+            <div class="row item-box header">
+                <div class="col-3">Restaurante</div>
+                    <div class="col-2">Personas</div>
+                    <div class="col-2">Fecha</div>
+                    <div class="col-2">Hora</div>
+                    <div class="col-3">Cancelar</div>
+            </div>
+            @for (item of reservations; track $index) {
+                <div class="row item-box item-style">
+                    <div class="col-3">{{item.restaurant.name}}</div>
+                    <div class="col-2">{{item.numberPeople}}</div>
+                    <div class="col-2">{{item.date}}</div>
+                    <div class="col-2">{{item.time}}</div>
+                    <div  class="col-3"> <button class="btn btn-danger" (click)="cancelReservation(item.id,$index)">Cancelar</button></div>
+                </div>
+            } 
+        </div>
+    </div>
+   
+</div>

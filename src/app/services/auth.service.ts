@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient,private router: Router ) {}
 
   login(username:string,password:string){
-    this.http.post<LoginResponse>('http://localhost:8080/auth/login',{username:username,password:password}).pipe(
+    this.http.post<LoginResponse>('http://localhost:8080/api/v1/auth/login',{username:username,password:password}).pipe(
       tap((result:LoginResponse)=>{
         console.log(result);
         sessionStorage.setItem("token",result.token)
@@ -31,7 +31,7 @@ export class AuthService {
     });
   }
   register(username:string,password:string){
-    this.http.post<GeneralResponse>('http://localhost:8080/auth/register',{username:username,password:password}).subscribe({
+    this.http.post<GeneralResponse>('http://localhost:8080/api/v1/auth/register',{username:username,password:password}).subscribe({
       next:(result:GeneralResponse)=>{
         console.log("result",result)
         alert("registrado exitosamente")
