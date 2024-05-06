@@ -5,18 +5,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Time } from '@angular/common';
 import { Restaurant } from '../interfaces/restaurant';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
   private  authService= inject (AuthService);
+  private  messageService= inject (MessageService);
 
   imagenesRestaurantes:string[]=["./assets/res3.jpg",
     "./assets/res1.jpg","./assets/res2.webp","./assets/res4.webp"];
 
   currentrestaurant!: Restaurant;
-
 
   constructor(private http: HttpClient) {
    }
@@ -44,6 +45,7 @@ export class RestaurantService {
       "user":userId
     }
     this.http.post('http://localhost:8080/api/v1/reservation',body).subscribe((result)=>{
+      this.messageService.generateMessage("Reserva realizada con exito")
     })
    }
  

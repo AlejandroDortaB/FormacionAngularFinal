@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginResponse } from '../interfaces/login-response';
 import { GeneralResponse } from '../interfaces/general-response';
 import { jwtDecode } from "jwt-decode";
+import { MessageService } from './message.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  private  messageService= inject (MessageService);
   constructor(private http: HttpClient,private router: Router ) {}
 
   login(username:string,password:string){
@@ -34,7 +35,7 @@ export class AuthService {
     this.http.post<GeneralResponse>('http://localhost:8080/api/v1/auth/register',{username:username,password:password}).subscribe({
       next:(result:GeneralResponse)=>{
         console.log("result",result)
-        alert("registrado exitosamente")
+        this.messageService.generateMessage("Se a registrado el usuario")
       },
       error:(error)=>{
         alert(`ERROR: ${error.error.error}`);
