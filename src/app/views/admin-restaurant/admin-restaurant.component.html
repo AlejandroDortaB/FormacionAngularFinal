@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<div class="header">
+   Administrar Mis Restaurantes
+</div>
+<div class="container">
+    <div class="row">
+        @for (item of restaurants; track $index) {
+            <div class="col-4">
+                <app-restaurant-option-box  [restaurant]="item" [admin]="true"></app-restaurant-option-box>
+            </div>
+        }   
+    </div> 
+</div>
+

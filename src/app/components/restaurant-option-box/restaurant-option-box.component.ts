@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { RestaurantService } from '../../services/restaurant.service';
 import { Restaurant } from '../../interfaces/restaurant';
 
@@ -12,8 +12,9 @@ import { Restaurant } from '../../interfaces/restaurant';
 })
 export class RestaurantOptionBoxComponent {
   @Input() restaurant!: Restaurant;
+  @Input() admin: boolean=false;
   
   protected  restaurantService= inject (RestaurantService); 
-  constructor(private router: Router) {}
+ 
 
 }

@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="header">
+    Mi Restaurante
+ </div>
+<div class="container">
+    <mat-tab-group>
+        <mat-tab label="Datos"> 
+            <br>
+            <br>
+            <form (ngSubmit)="onSubmit()" class="my-form">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name"  >
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="text-area">Descripción</label>
+                    <textarea class="form-control" id="text-area" rows="3"></textarea>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="text-area">capacidad</label>
+                    <input type="number" class="form-control" id="capacity"  >
+                </div>
+                <br>
+                <mat-form-field>
+                    <mat-label>Seleccione una foto</mat-label>
+                    <mat-select>
+                      @for (number of numbers; track number) {
+                        <mat-option [value]="number.value">{{number.viewValue}}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+               
+                <br>
+                <button type="submit" class="btn btn-dark">Enviar</button>
+            </form>
+        </mat-tab>
+        <mat-tab label="Menus"> Content 2 </mat-tab>
+        <mat-tab label="Reservas"> Content 3 </mat-tab>
+      </mat-tab-group>
+    
+</div>
+

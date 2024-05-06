@@ -39,6 +39,7 @@ export class ReservationComponent implements OnInit{
    ["8:00 PM","20:00:00"],["9:00 PM","21:00:00"]];
   protected  restaurantService= inject (RestaurantService);
   currentRestaurant!: Restaurant;
+  
   constructor(private route:ActivatedRoute,private datePipe: DatePipe){}
 
   ngOnInit(): void {

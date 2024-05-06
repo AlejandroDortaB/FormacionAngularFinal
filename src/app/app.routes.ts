@@ -5,6 +5,8 @@ import { HomeComponent } from './views/home/home.component';
 import { ReservationComponent } from './views/reservation/reservation.component';
 import { OurReservationsComponent } from './views/our-reservations/our-reservations.component';
 import { verifyTokenGuard } from './guards/verify-token.guard';
+import { AdminRestaurantComponent } from './views/admin-restaurant/admin-restaurant.component';
+import { ModifyRestaurantComponent } from './views/modify-restaurant/modify-restaurant.component';
 
 export const routes: Routes = [
     {path:"login",component:LoginComponent},
@@ -12,6 +14,8 @@ export const routes: Routes = [
     {path:"restaurantes",component:HomeComponent, canActivate:[verifyTokenGuard]},
     {path:"restaurante/:id",component:ReservationComponent, canActivate:[verifyTokenGuard]},
     {path:"mis-reservas",component:OurReservationsComponent, canActivate:[verifyTokenGuard]},
+    {path:"admin-restaurant",component:AdminRestaurantComponent,canActivate:[verifyTokenGuard]},
+    {path:"administrar-restaurante/:id",component:ModifyRestaurantComponent,canActivate:[verifyTokenGuard]},
     {path: '', component: LoginComponent },
     {path: '**', component: LoginComponent },
 ];
