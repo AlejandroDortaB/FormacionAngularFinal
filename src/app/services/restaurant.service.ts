@@ -6,11 +6,13 @@ import { AuthService } from './auth.service';
 import { Time } from '@angular/common';
 import { Restaurant } from '../interfaces/restaurant';
 import { MessageService } from './message.service';
+import { Menu } from '../interfaces/menu';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
+  
   private  authService= inject (AuthService);
   private  messageService= inject (MessageService);
 
@@ -48,5 +50,10 @@ export class RestaurantService {
       this.messageService.generateMessage("Reserva realizada con exito")
     })
    }
+
+   createMenu(body: { name: string; restaurant: number; }):Observable<Menu> {
+    return this.http.post<Menu>("http://localhost:8080/api/v1/menu",body)
+
+  }
  
 }

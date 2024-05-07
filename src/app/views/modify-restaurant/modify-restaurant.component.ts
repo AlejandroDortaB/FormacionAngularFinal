@@ -8,6 +8,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MenuItemBoxComponent } from "../../components/menu-item-box/menu-item-box.component";
+import { ModalCreateMenuComponent } from "../../components/modal-create-menu/modal-create-menu.component";
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { Menu } from '../../interfaces/menu';
 
 @Component({
     selector: 'app-modify-restaurant',
@@ -15,13 +19,15 @@ import { MatInputModule } from '@angular/material/input';
     templateUrl: './modify-restaurant.component.html',
     styleUrl: './modify-restaurant.component.css',
     imports: [NavbarComponent,
-      FormsModule,
-      MatTabsModule,
-      MatSelectModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatSelectModule,
-    ]
+        FormsModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule, 
+        MenuItemBoxComponent, 
+        ModalCreateMenuComponent,
+        MatDialogModule]
 })
 export class ModifyRestaurantComponent implements OnInit{
 
@@ -38,7 +44,7 @@ export class ModifyRestaurantComponent implements OnInit{
   protected description:string="";
   protected capacity:number=0;
 
-  constructor(private route:ActivatedRoute){}
+  constructor(private route:ActivatedRoute,public dialog: MatDialog){}
 
   ngOnInit(): void {
     this.restaurantService.getRestaurantById(this.route.snapshot.params['id']).subscribe((restaurant)=>{
@@ -52,5 +58,20 @@ export class ModifyRestaurantComponent implements OnInit{
 
    onSubmit() {
     throw new Error('Method not implemented.');
+    }
+
+    openDialogCreateMenu() {
+      const dialogRef = this.dialog.open(ModalCreateMenuComponent);
+      let newMenuName:string=""
+
+      dialogRef.afterClosed().subscribe(name => {
+       newMenuName = name
+       if((newMenuName !="")&&(newMenuName)){
+        
+        this.restaurantService.createMenu({name:newMenuName,restaurant: this.currentRestaurant.id}).subscribe((newMenu:Menu)=>{
+          this.currentRestaurant.menus.push(newMenu);
+        })
+       }
+      });
     }
 }

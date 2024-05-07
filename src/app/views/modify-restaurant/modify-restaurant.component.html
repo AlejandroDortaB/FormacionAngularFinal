@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="header">
-    Mi Restaurante
+   {{currentRestaurant.name}}
  </div>
 <div class="container">
     <mat-tab-group>
@@ -36,9 +36,27 @@
                 <button type="submit" class="btn btn-dark">Enviar</button>
             </form>
         </mat-tab>
-        <mat-tab label="Menus"> Content 2 </mat-tab>
+        <mat-tab label="Menus">
+          <br>
+          <div class="container">
+            <div class="options-control-menu">
+             
+              <button class="btn btn-dark" (click)="openDialogCreateMenu()">Crear Nuevo Menu</button>
+             <!--  <app-modal-create-menu></app-modal-create-menu> -->
+            </div> 
+           <br>
+            <div class="row">
+              @for (menu of currentRestaurant.menus; track menu) {
+                <div class="col-6">
+                  <app-menu-item-box [data]="menu"></app-menu-item-box>
+                </div>
+              }
+            </div>
+          </div> 
+          
+        </mat-tab>
         <mat-tab label="Reservas"> Content 3 </mat-tab>
-      </mat-tab-group>
+      </mat-tab-group> 
     
 </div>
 
