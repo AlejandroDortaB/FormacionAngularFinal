@@ -38,21 +38,17 @@
 </div>
 
   <div [hidden]="currentRestaurant.menus.length == 0" class="container menus-body">
-    <h1>Lista de menus</h1>
-    <hr>
-    @for (menu of currentRestaurant.menus; track menu) {
-      <div class="menu-item">
-        <h2>{{menu.name}}</h2>
-        <ul>
-          @for ( food of menu.foodPlates; track $index) {
-            <li>
-              {{food}}
-            </li>
-          }
-        </ul>
-      </div>
-      <br>
-    }
+    <div class="header">
+      Lista de menus
+  </div>
+    <div class="row">
+      @for (menu of currentRestaurant.menus; track menu) {
+        <div class="col-6">
+          <app-menu-item-box [data]="menu"></app-menu-item-box>
+        </div>
+      }
+    </div>
+   
   </div>
 
 

@@ -36,6 +36,7 @@ export class ModifyRestaurantComponent implements OnInit{
   currentRestaurant!: Restaurant;
   protected name:string="";
   protected description:string="";
+  protected capacity:number=0;
 
   constructor(private route:ActivatedRoute){}
 
@@ -43,6 +44,8 @@ export class ModifyRestaurantComponent implements OnInit{
     this.restaurantService.getRestaurantById(this.route.snapshot.params['id']).subscribe((restaurant)=>{
      this.currentRestaurant= restaurant;
      console.log(this.currentRestaurant)
+     this.name= this.currentRestaurant.name;
+     this.description = this.currentRestaurant.description;
     })
     
    }

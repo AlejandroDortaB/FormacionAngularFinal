@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/datepicker';
@@ -10,27 +10,28 @@ import { RestaurantService } from '../../services/restaurant.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
 import { Restaurant } from '../../interfaces/restaurant';
+import { MenuItemBoxComponent } from "../../components/menu-item-box/menu-item-box.component";
 
 
 @Component({
-  selector: 'app-reservation',
-  standalone: true,
-  imports: [FormsModule,
-            RouterModule,
-            MatFormFieldModule,
-            MatInputModule,
-            MatDatepickerModule,
-            MatSelectModule,
-            NavbarComponent,
-            ],
-  providers: [  
-    provideNativeDateAdapter(),  
-    DatePipe
-  ],
-  templateUrl: './reservation.component.html',
-  styleUrl: './reservation.component.css'
+    selector: 'app-reservation',
+    standalone: true,
+    providers: [
+        provideNativeDateAdapter(),
+        DatePipe
+    ],
+    templateUrl: './reservation.component.html',
+    styleUrl: './reservation.component.css',
+    imports: [FormsModule,
+        RouterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        NavbarComponent, MenuItemBoxComponent]
 })
 export class ReservationComponent implements OnInit{
+  
   protected dateSelected!: string;
   protected timeSelected:string="";
   protected nPersons: number=1;

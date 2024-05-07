@@ -1,0 +1,13 @@
+<div class="menu">
+    <h1>{{data.name}}</h1>
+    @for (foodPlates of data.foodPlates; track $index) {
+        <div class="itemWrap">
+            <div class="itemNameWrap">
+              <span class="itemName">{{foodPlates.name}}</span>
+              <span class="itemMiddle"></span>
+              <span class="itemPrice">{{foodPlates.prices}}</span>
+            </div>
+             <span class="itemDescription">{{foodPlates.ingredients}}</span>
+          </div>
+    }
+  </div>

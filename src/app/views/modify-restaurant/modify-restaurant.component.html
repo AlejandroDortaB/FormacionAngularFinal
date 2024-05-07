@@ -10,22 +10,22 @@
             <form (ngSubmit)="onSubmit()" class="my-form">
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input type="text" class="form-control" id="name"  >
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="this.name" >
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="text-area">Descripción</label>
-                    <textarea class="form-control" id="text-area" rows="3"></textarea>
+                    <textarea class="form-control" id="text-area" rows="3" name="descripción" [(ngModel)]="this.description"></textarea>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="text-area">capacidad</label>
-                    <input type="number" class="form-control" id="capacity"  >
+                    <input type="number" class="form-control" id="capacity" name="capacity" [(ngModel)]="capacity" >
                 </div>
                 <br>
                 <mat-form-field>
-                    <mat-label>Seleccione una foto</mat-label>
-                    <mat-select>
+                    <mat-label>Seleccione una foto</mat-label>           
+                    <mat-select >
                       @for (number of numbers; track number) {
                         <mat-option [value]="number.value">{{number.viewValue}}</mat-option>
                       }

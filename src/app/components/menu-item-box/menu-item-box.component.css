@@ -1,0 +1,53 @@
+:root {
+    --themeBG: #1d1e22;
+    --themeFont: #efefef;
+  }
+  
+  .menu {
+    width: 100%;
+    margin: 10px auto;
+    padding: 10px 30px;
+    background: var(--themeBG);
+    border: 3px solid var(--themeFont);
+    box-shadow: 1px 1px 3px black;
+    color: var(--themeFont);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .itemWrap {
+    margin-bottom: 10px;
+  }
+  
+  /*Displaying flex and justifying content space between to take up the width of the box*/
+  .itemNameWrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .itemName {
+    font-size: 1.8em;
+  }
+  
+  /*The Radial Gradient background is used as the dots. The position being at 90% helps line up the dots with the price which is just a little smaller than the description. Flex-grow: 2 makes the middle spread out to take up the remaining space. */
+  .itemMiddle {
+    vertical-align: bottom;
+    background-image: radial-gradient(var(--themeFont) 1px, var(--themeBG) 0px);
+    background-size: 8px 8px;
+    background-repeat: repeat-x;
+    background-position: left 90%;
+    flex-grow: 2;
+  }
+  
+  .itemPrice {
+    font-size: 1.6em;
+    padding-top:5px;
+  }
+  
+  .itemDescription {
+    font-size: 1.1em;
+    font-style: italic;
+  }
