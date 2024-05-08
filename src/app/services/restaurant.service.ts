@@ -58,6 +58,14 @@ export class RestaurantService {
     })
    }
 
+   getRestaurantReservations(idRestaurant:number):Observable<any>{
+    return this.http.get("http://localhost:8080/api/v1/restaurant/"+idRestaurant+"/reservation")
+   }
+
+   getReservationGroupByDate(idRestaurant:number):Observable<any>{
+    return this.http.get("http://localhost:8080/api/v1/restaurant/"+idRestaurant+"/reservation/group-date")
+   }
+
    /**********************************************************Menus********************************************/
    createMenu(body: { name: string; restaurant: number; }):Observable<Menu> {
     return this.http.post<Menu>("http://localhost:8080/api/v1/menu",body)

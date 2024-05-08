@@ -48,7 +48,24 @@
           
         </mat-tab>
          <!--------------------------------------------------------Reservas-------------------------------------------->
-        <mat-tab label="Reservas"> Content 3 </mat-tab>
+        <mat-tab label="Reservas"> 
+          <div >
+            <div class="body">  
+                <div class="row item-box">
+                        <div class="col-2">Personas</div>
+                        <div class="col-2">Fecha</div>
+                        <div class="col-2">Hora</div>
+                </div>
+                @for (item of reservations; track $index) {
+                    <div class="row item-box item-style"> 
+                        <div class="col-2">{{item.numberPeople}}</div>
+                        <div class="col-2">{{item.date}}</div>
+                        <div class="col-2">{{item.time}}</div>
+                    </div>
+                } 
+            </div>
+        </div>
+        </mat-tab>
       </mat-tab-group> 
     
 </div>

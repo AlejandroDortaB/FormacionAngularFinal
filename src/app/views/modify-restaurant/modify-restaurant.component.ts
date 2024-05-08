@@ -13,6 +13,7 @@ import { ModalCreateMenuComponent } from "../../components/modal-create-menu/mod
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { Menu } from '../../interfaces/menu';
 import { FoodPlates } from '../../interfaces/food-plates';
+import { Reservation } from '../../interfaces/reservation';
 
 @Component({
     selector: 'app-modify-restaurant',
@@ -38,18 +39,22 @@ export class ModifyRestaurantComponent implements OnInit{
   protected description:string="";
   protected capacity:number=0;
 
+  protected reservations:Reservation[]=[];
+
   constructor(private route:ActivatedRoute,public dialog: MatDialog){}
 
   ngOnInit(): void {
     this.restaurantService.getRestaurantById(this.route.snapshot.params['id']).subscribe((restaurant:Restaurant)=>{
      this.currentRestaurant= restaurant;
-     console.log(this.currentRestaurant)
      this.name= this.currentRestaurant.name;
      this.description = this.currentRestaurant.description;
      this.capacity= restaurant.capacity;
     })
-    
-   }
+      this.restaurantService.getRestaurantReservations(this.route.snapshot.params['id']).subscribe((result)=>{
+        this.reservations = result;
+
+      })
+   }  
 
    onSubmit() {
     const restaurantModify:Restaurant={
