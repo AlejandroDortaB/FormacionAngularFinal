@@ -52,14 +52,22 @@ export class ModifyRestaurantComponent implements OnInit{
    }
 
    onSubmit() {
-    throw new Error('Method not implemented.');
+    const restaurantModify:Restaurant={
+      name:this.name,
+      capacity: this.capacity,
+      description: this.description,
+      imgIndex:this.currentRestaurant.imgIndex,
+    }
+    this.restaurantService.modifyRestaurantData(this.currentRestaurant.id!, restaurantModify).subscribe((restaurant:Restaurant)=>{
+      console.log("restaurant")
+    })
     }
 
     openDialogCreateMenu() {
       const dialogRef = this.dialog.open(ModalCreateMenuComponent);
       dialogRef.afterClosed().subscribe((data:Menu) => {
        if((data.name !="")&&(data)){      
-          this.restaurantService.createMenu({name:data.name,restaurant: this.currentRestaurant.id}).subscribe((newMenu:Menu)=>{ 
+          this.restaurantService.createMenu({name:data.name,restaurant: this.currentRestaurant.id!}).subscribe((newMenu:Menu)=>{ 
             newMenu.foodPlates=[];         
             if(data.foodPlates.length > 0){
               for (let index = 0; index < data.foodPlates.length; index++) {
@@ -68,7 +76,7 @@ export class ModifyRestaurantComponent implements OnInit{
                   newMenu.foodPlates.push(food)
                 })
               }
-              this.currentRestaurant.menus.push(newMenu);
+              this.currentRestaurant.menus!.push(newMenu);
             } 
           }) 
        }
@@ -76,10 +84,10 @@ export class ModifyRestaurantComponent implements OnInit{
     }
 
     deleteMenu(idMenu:number) {
-      this.currentRestaurant.menus.forEach((menu:Menu, index: number)=>{
+      this.currentRestaurant.menus!.forEach((menu:Menu, index: number)=>{
         if(menu.id==idMenu){
           this.restaurantService.deleteMenu(menu.id);
-          this.currentRestaurant.menus.splice(index, 1);
+          this.currentRestaurant.menus!.splice(index, 1);
         }
       })
     }

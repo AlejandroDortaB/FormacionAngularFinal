@@ -55,7 +55,7 @@ export class ReservationComponent implements OnInit{
     }
 
   sendReservation() {
-    this.restaurantService.generateReservation(this.nPersons,this.dateSelected,this.timeSelected,this.currentRestaurant.id);
+    this.restaurantService.generateReservation(this.nPersons,this.dateSelected,this.timeSelected,this.currentRestaurant.id!);
     }
 
     addEvent(event: MatDatepickerInputEvent<Date>) {

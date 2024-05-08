@@ -13,8 +13,7 @@ import { FoodPlates } from '../interfaces/food-plates';
   providedIn: 'root'
 })
 export class RestaurantService {
-  
-  
+ 
   private  authService= inject (AuthService);
   private  messageService= inject (MessageService);
 
@@ -38,6 +37,12 @@ export class RestaurantService {
   getRestaurantById(id:number):Observable<Restaurant>{
     return this.http.get<Restaurant>('http://localhost:8080/api/v1/restaurant/'+id)
    }
+
+   modifyRestaurantData(idRestaurant:number,body:Restaurant):Observable<Restaurant> {
+    return this.http.put<Restaurant>('http://localhost:8080/api/v1/restaurant/'+idRestaurant,body)
+  }
+
+   /*********************************************************Reservation************************ */
 
    generateReservation(nPersons:number,date:string,time:string,restaurantId:number){
     const userId=this.authService.getUserIdFromToken();

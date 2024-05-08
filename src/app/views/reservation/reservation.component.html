@@ -3,7 +3,7 @@
  <span  class="img-box">
     <div>
       <h1>{{currentRestaurant.name}}</h1>
-      <img src={{restaurantService.getImgRestaurent(currentRestaurant.imgIndex)}} alt=""  class="my-img">
+      <img src={{restaurantService.getImgRestaurent(currentRestaurant.imgIndex!)}} alt=""  class="my-img">
     </div>
     <br>
     <p class="description">{{currentRestaurant!.description}}</p> 
@@ -37,7 +37,7 @@
   </form>    
 </div>
 
-  <div [hidden]="currentRestaurant.menus.length == 0" class="container menus-body">
+  <div [hidden]="currentRestaurant.menus!.length == 0" class="container menus-body">
     <div class="header">
       Lista de menus
   </div>
