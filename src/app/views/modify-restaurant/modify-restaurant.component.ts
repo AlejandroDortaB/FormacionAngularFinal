@@ -59,7 +59,7 @@ export class ModifyRestaurantComponent implements OnInit{
       imgIndex:this.currentRestaurant.imgIndex,
     }
     this.restaurantService.modifyRestaurantData(this.currentRestaurant.id!, restaurantModify).subscribe((restaurant:Restaurant)=>{
-      console.log("restaurant")
+      this.currentRestaurant.name= restaurant.name;
     })
     }
 
