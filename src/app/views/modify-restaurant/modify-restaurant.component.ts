@@ -41,11 +41,12 @@ export class ModifyRestaurantComponent implements OnInit{
   constructor(private route:ActivatedRoute,public dialog: MatDialog){}
 
   ngOnInit(): void {
-    this.restaurantService.getRestaurantById(this.route.snapshot.params['id']).subscribe((restaurant)=>{
+    this.restaurantService.getRestaurantById(this.route.snapshot.params['id']).subscribe((restaurant:Restaurant)=>{
      this.currentRestaurant= restaurant;
      console.log(this.currentRestaurant)
      this.name= this.currentRestaurant.name;
      this.description = this.currentRestaurant.description;
+     this.capacity= restaurant.capacity;
     })
     
    }
