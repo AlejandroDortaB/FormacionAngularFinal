@@ -12,6 +12,7 @@ import { MenuItemBoxComponent } from "../../components/menu-item-box/menu-item-b
 import { ModalCreateMenuComponent } from "../../components/modal-create-menu/modal-create-menu.component";
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { Menu } from '../../interfaces/menu';
+import { FoodPlates } from '../../interfaces/food-plates';
 
 @Component({
     selector: 'app-modify-restaurant',
@@ -30,13 +31,6 @@ import { Menu } from '../../interfaces/menu';
         MatDialogModule]
 })
 export class ModifyRestaurantComponent implements OnInit{
-
-  numbers: any[] = [
-    {value: 0, viewValue: 'Imagen 1'},
-    {value: 1, viewValue: 'Imagen 2'},
-    {value: 2, viewValue: 'Imagen 3'},
-    {value: 3, viewValue: 'Imagen 4'},
-  ];
 
   protected  restaurantService= inject (RestaurantService);
   currentRestaurant!: Restaurant;
@@ -62,16 +56,30 @@ export class ModifyRestaurantComponent implements OnInit{
 
     openDialogCreateMenu() {
       const dialogRef = this.dialog.open(ModalCreateMenuComponent);
-      let newMenuName:string=""
-
-      dialogRef.afterClosed().subscribe(name => {
-       newMenuName = name
-       if((newMenuName !="")&&(newMenuName)){
-        
-        this.restaurantService.createMenu({name:newMenuName,restaurant: this.currentRestaurant.id}).subscribe((newMenu:Menu)=>{
-          this.currentRestaurant.menus.push(newMenu);
-        })
+      dialogRef.afterClosed().subscribe((data:Menu) => {
+       if((data.name !="")&&(data)){      
+          this.restaurantService.createMenu({name:data.name,restaurant: this.currentRestaurant.id}).subscribe((newMenu:Menu)=>{ 
+            newMenu.foodPlates=[];         
+            if(data.foodPlates.length > 0){
+              for (let index = 0; index < data.foodPlates.length; index++) {
+                data.foodPlates[index].menuId=newMenu.id
+                this.restaurantService.createPlatesforMenu(data.foodPlates[index]).subscribe((food:FoodPlates)=>{
+                  newMenu.foodPlates.push(food)
+                })
+              }
+              this.currentRestaurant.menus.push(newMenu);
+            } 
+          }) 
        }
       });
+    }
+
+    deleteMenu(idMenu:number) {
+      this.currentRestaurant.menus.forEach((menu:Menu, index: number)=>{
+        if(menu.id==idMenu){
+          this.restaurantService.deleteMenu(menu.id);
+          this.currentRestaurant.menus.splice(index, 1);
+        }
+      })
     }
 }

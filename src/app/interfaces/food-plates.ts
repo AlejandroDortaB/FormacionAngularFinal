@@ -1,5 +1,6 @@
 export interface FoodPlates {
-    id:number
+    menuId?: number;
+    id?:number
     name:string;
     ingredients:string;
     prices:number;

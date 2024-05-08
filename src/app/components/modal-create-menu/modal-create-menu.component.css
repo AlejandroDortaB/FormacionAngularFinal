@@ -1,0 +1,24 @@
+.newplate-header{
+    color: black;
+    font-weight: 500;
+}
+.namePlates{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    width: 90%;
+}
+.deleteOption{
+    color: red;
+}
+.deleteOption:hover{
+    color: rgb(95, 0, 0);
+    cursor: pointer;
+}
+.platesItems{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.header{
+    width: 500px;
+}

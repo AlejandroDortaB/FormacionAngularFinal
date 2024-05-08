@@ -4,6 +4,7 @@
  </div>
 <div class="container">
     <mat-tab-group>
+  <!-- -------------------------------------------------    DATOS ------------------------------------------------->
         <mat-tab label="Datos"> 
             <br>
             <br>
@@ -23,19 +24,10 @@
                     <input type="number" class="form-control" id="capacity" name="capacity" [(ngModel)]="capacity" >
                 </div>
                 <br>
-                <mat-form-field>
-                    <mat-label>Seleccione una foto</mat-label>           
-                    <mat-select >
-                      @for (number of numbers; track number) {
-                        <mat-option [value]="number.value">{{number.viewValue}}</mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
-               
-                <br>
                 <button type="submit" class="btn btn-dark">Enviar</button>
             </form>
         </mat-tab>
+        <!--------------------------------------------------------Menus-------------------------------------------->
         <mat-tab label="Menus">
           <br>
           <div class="container">
@@ -45,16 +37,17 @@
              <!--  <app-modal-create-menu></app-modal-create-menu> -->
             </div> 
            <br>
-            <div class="row">
+            <div class="row" >
               @for (menu of currentRestaurant.menus; track menu) {
-                <div class="col-6">
-                  <app-menu-item-box [data]="menu"></app-menu-item-box>
+                <div class="col-6 menu-item-content" >
+                  <app-menu-item-box [data]="menu" [admin]="true" (deleteMenuEvent)="deleteMenu($event)"></app-menu-item-box>
                 </div>
               }
             </div>
           </div> 
           
         </mat-tab>
+         <!--------------------------------------------------------Reservas-------------------------------------------->
         <mat-tab label="Reservas"> Content 3 </mat-tab>
       </mat-tab-group> 
     

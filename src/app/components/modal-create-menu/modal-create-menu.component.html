@@ -1,15 +1,57 @@
-<h2 mat-dialog-title>Crear Nuevo Menu</h2>
-<mat-dialog-content >
-    <form  class="my-form">
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="this.name" >
+
+<!-- Crear nuevo Plato -->
+<mat-dialog-content  [hidden]="!activeFormPlate">
+    <div >
+        <h2 mat-dialog-title>Nuevo Plato</h2>
+        <form>
+            <div class="form-group">
+                <label for="plateName">Nombre del plato</label>
+                <input type="text" class="form-control" id="plateName" name="plateName" [(ngModel)]="this.plateName" >
+                <label for="plateIngredients">Ingredientes</label>
+                <input type="text" class="form-control" id="plateIngredients" name="plateIngredients" [(ngModel)]="this.plateIngredients" >
+                <label for="platePrice">Precio</label>
+                <input type="number" class="form-control" id="platePrice" name="platePrice" [(ngModel)]="this.platePrice" >
+                <br>  
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions [hidden]="!activeFormPlate">
+    <button class="btn" (click)="cancelnewPlate()">Cancelar</button>
+    <button class="btn btn-dark" (click)="addPlate()">Crear Plato</button>
+</mat-dialog-actions>
+
+<!-- Crear Menu -->
+<mat-dialog-content  [hidden]="activeFormPlate">
+    <div class="header">
+        <h2 mat-dialog-title>{{data ? "Modificar Menu existente":"Crear Nuevo Menu"}}</h2>
+    </div>
+    
+        <form  class="my-form">
+            <div class="form-group">
+                <label for="name">Nombre del menu</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="this.name" >
+            </div>
+        </form>
+        <br>
+        <div class="btn-addPlate">
+            <button class="btn btn-dark" (click)="openFormPlate()">+ Añadir Plato</button> 
         </div>
-    </form>
+        <br>
+       <div [hidden]="platesMenu.length == 0">
+            <h3>Lista de platos añadidos</h3>
+            <div class="container">
+                @for (plates of platesMenu; track $index) {
+                    <div class="row platesItems">
+                        <div class="col-11 namePlates">{{plates.name}} </div>    
+                        <div class="col-1 deleteOption" (click)="deletePlates($index)">X</div>   
+                    </div>       
+                }
+            </div>
+       </div>
 </mat-dialog-content>
 
-
-<mat-dialog-actions align="end">
+<mat-dialog-actions [hidden]="activeFormPlate" align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button  [mat-dialog-close]="true" class="btn btn-dark" [mat-dialog-close]="name" (click)="createMenu()">Crear</button>
+  <button  [mat-dialog-close]="true" class="btn btn-dark" [mat-dialog-close]="getDataNewMenu()" >Crear Menu</button>
 </mat-dialog-actions>

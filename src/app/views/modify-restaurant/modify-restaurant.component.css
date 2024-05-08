@@ -9,3 +9,6 @@
 .options-control-menu{
    
 }
+.menu-item-content{
+    position: relative;
+}

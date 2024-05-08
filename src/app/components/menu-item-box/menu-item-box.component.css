@@ -51,3 +51,24 @@
     font-size: 1.1em;
     font-style: italic;
   }
+  .edit-icon{
+    margin-left: 10px;
+  }
+
+  .edit-icon:hover{
+    color:rgb(117, 117, 117);
+    cursor:pointer;
+  }
+  .delete-menu{
+    color: rgb(190, 0, 0);
+    font-size: large;
+    position: absolute;
+    top: 15px;
+    right: 18px;
+  }
+  .delete-menu:hover{
+    
+    color: rgb(107, 0, 0);
+    cursor: pointer;
+    font-weight: 500;
+  }

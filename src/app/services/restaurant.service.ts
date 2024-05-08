@@ -7,11 +7,13 @@ import { Time } from '@angular/common';
 import { Restaurant } from '../interfaces/restaurant';
 import { MessageService } from './message.service';
 import { Menu } from '../interfaces/menu';
+import { FoodPlates } from '../interfaces/food-plates';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
+  
   
   private  authService= inject (AuthService);
   private  messageService= inject (MessageService);
@@ -51,9 +53,28 @@ export class RestaurantService {
     })
    }
 
+   /**********************************************************Menus********************************************/
    createMenu(body: { name: string; restaurant: number; }):Observable<Menu> {
     return this.http.post<Menu>("http://localhost:8080/api/v1/menu",body)
 
   }
+  updateMenuData(idMenu:number,body: { name: string }) :Observable<Menu>{
+   return this.http.put<Menu>("http://localhost:8080/api/v1/menu/"+idMenu,body)
+  }
+
+  deleteMenu(idMenu:number){
+    this.http.delete("http://localhost:8080/api/v1/menu/"+idMenu).subscribe(()=>{   
+    });
+  }
+
+  /************************************************************FoodPlates*********************************** */
+  createPlatesforMenu(body: FoodPlates):Observable<FoodPlates> {
+    return this.http.post<FoodPlates>("http://localhost:8080/api/v1/foodplate",body)
+  }
+
+  deleteFoodPlates(idFoodPlate:number){
+    this.http.delete("http://localhost:8080/api/v1/foodplate/"+idFoodPlate).subscribe(()=>{   
+    });
+  }  
  
 }

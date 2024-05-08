@@ -1,7 +1,7 @@
 import { FoodPlates } from "./food-plates";
 
 export interface Menu {
-    id: number;
+    id?: number;
     name: string;
     foodPlates: FoodPlates[];
 }
