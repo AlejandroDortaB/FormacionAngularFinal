@@ -1,6 +1,3 @@
-.my-form{
-    width: 50%;
-}
 .header{
     text-align: center;
     font-size: xx-large;
@@ -11,4 +8,8 @@
 }
 .menu-item-content{
     position: relative;
+}
+.table-header{
+    font-size: x-large;
+    font-weight: 500;
 }

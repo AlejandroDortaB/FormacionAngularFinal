@@ -39,7 +39,9 @@ export class ModifyRestaurantComponent implements OnInit{
   protected description:string="";
   protected capacity:number=0;
 
-  protected reservations:Reservation[]=[];
+  protected reservations:any;
+
+  imageUrl: string | ArrayBuffer | null = null;
 
   constructor(private route:ActivatedRoute,public dialog: MatDialog){}
 
@@ -51,6 +53,7 @@ export class ModifyRestaurantComponent implements OnInit{
      this.capacity= restaurant.capacity;
     })
       this.restaurantService.getRestaurantReservations(this.route.snapshot.params['id']).subscribe((result)=>{
+        console.log("result",result)
         this.reservations = result;
 
       })
@@ -95,5 +98,21 @@ export class ModifyRestaurantComponent implements OnInit{
           this.currentRestaurant.menus!.splice(index, 1);
         }
       })
+    }
+
+    getReservationDates(): string[] {
+      return Object.keys(this.reservations);
+    }
+
+
+    onFileSelected(event: any) {
+      const file: File = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.imageUrl = reader.result;
+        };
+      }
     }
 }

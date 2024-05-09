@@ -8,24 +8,45 @@
         <mat-tab label="Datos"> 
             <br>
             <br>
-            <form (ngSubmit)="onSubmit()" class="my-form">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="this.name" >
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <form (ngSubmit)="onSubmit()" class="my-form">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="this.name" >
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="text-area">Descripción</label>
+                        <textarea class="form-control" id="text-area" rows="3" name="descripción" [(ngModel)]="this.description"></textarea>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="text-area">capacidad</label>
+                        <input type="number" class="form-control" id="capacity" name="capacity" [(ngModel)]="capacity" >
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-dark">Guardar</button>
+                  </form>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label for="text-area">Descripción</label>
-                    <textarea class="form-control" id="text-area" rows="3" name="descripción" [(ngModel)]="this.description"></textarea>
+                <div class="col-6">
+                  <h2>Subir Archivo</h2>
+                  <div>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                  </div>
+                  @if(imageUrl){
+                    <div >
+                      <img [src]="imageUrl" alt="Uploaded Image">
+                    </div>
+                    
+                  }
+                  
                 </div>
-                <br>
-                <div class="form-group">
-                    <label for="text-area">capacidad</label>
-                    <input type="number" class="form-control" id="capacity" name="capacity" [(ngModel)]="capacity" >
-                </div>
-                <br>
-                <button type="submit" class="btn btn-dark">Guardar</button>
-            </form>
+              </div>
+            </div>
+            
+           
         </mat-tab>
         <!--------------------------------------------------------Menus-------------------------------------------->
         <mat-tab label="Menus">
@@ -49,22 +70,32 @@
         </mat-tab>
          <!--------------------------------------------------------Reservas-------------------------------------------->
         <mat-tab label="Reservas"> 
-          <div >
-            <div class="body">  
-                <div class="row item-box">
-                        <div class="col-2">Personas</div>
-                        <div class="col-2">Fecha</div>
-                        <div class="col-2">Hora</div>
+          <br>
+            <div class="body container">
+              <div class="row table-header">
+                <div class="col-6">
+                  Fecha de reserva
                 </div>
-                @for (item of reservations; track $index) {
-                    <div class="row item-box item-style"> 
-                        <div class="col-2">{{item.numberPeople}}</div>
-                        <div class="col-2">{{item.date}}</div>
-                        <div class="col-2">{{item.time}}</div>
-                    </div>
+                <div class="col-6">
+                  Datos de las reservas
+                </div>
+              </div>  
+              <br>
+              <div class="row">
+                @for (date of  getReservationDates(); track $index) {
+                  <div class="col-6">
+                    <h3>{{date}}</h3>
+                  </div>
+                  <div class="col-6">
+                      @for (reservation of reservations[date]; track $index) {
+                          <p>Hora: {{ reservation.time }}</p>
+                          <p>Número de personas: {{ reservation.numberPeople }}</p>
+                      }
+                  </div> 
+                  <hr>                 
                 } 
+              </div>   
             </div>
-        </div>
         </mat-tab>
       </mat-tab-group> 
     

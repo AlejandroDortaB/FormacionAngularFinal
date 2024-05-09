@@ -6,5 +6,5 @@ export interface Reservation {
     time: string;
     numberPeople: number;
     restaurant: Restaurant;
-    userid: number; // Si tienes una interfaz para la entidad User, asegúrate de importarla aquí
+    userid: number; 
   }
