@@ -41,7 +41,7 @@ export class ModifyRestaurantComponent implements OnInit{
 
   protected reservations:any;
 
-  imageUrl: string | ArrayBuffer | null = null;
+  imageUrl: string | ArrayBuffer | undefined | null = null;
 
   constructor(private route:ActivatedRoute,public dialog: MatDialog){}
 
@@ -51,6 +51,7 @@ export class ModifyRestaurantComponent implements OnInit{
      this.name= this.currentRestaurant.name;
      this.description = this.currentRestaurant.description;
      this.capacity= restaurant.capacity;
+     this.imageUrl= this.currentRestaurant.imageUrl;
     })
       this.restaurantService.getRestaurantReservations(this.route.snapshot.params['id']).subscribe((result)=>{
         console.log("result",result)
@@ -107,6 +108,9 @@ export class ModifyRestaurantComponent implements OnInit{
 
     onFileSelected(event: any) {
       const file: File = event.target.files[0];
+      this.restaurantService.uploadRestaurantImage(this.currentRestaurant.id!,file).subscribe((result)=>{
+        console.log("result")
+      })
       if (file) {
         const reader = new FileReader();
         reader.readAsDataURL(file);

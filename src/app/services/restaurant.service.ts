@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -41,6 +41,13 @@ export class RestaurantService {
    modifyRestaurantData(idRestaurant:number,body:Restaurant):Observable<Restaurant> {
     return this.http.put<Restaurant>('http://localhost:8080/api/v1/restaurant/'+idRestaurant,body)
   }
+
+  uploadRestaurantImage(restaurantId: number, imageFile: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', imageFile, imageFile.name);
+    return this.http.post('http://localhost:8080/api/v1/restaurant/' + restaurantId + '/upload-image', formData);
+}
+  
 
    /*********************************************************Reservation************************ */
 

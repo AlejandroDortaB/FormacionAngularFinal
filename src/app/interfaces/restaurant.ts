@@ -7,6 +7,7 @@ export interface Restaurant {
     capacity: number;
     description: string;
     imgIndex?: number;
+    imageUrl?: string;
     menus?: Menu[];
     reservations?: Reservation[];
   }

@@ -11,6 +11,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-6">
+                  <h2>Datos</h2>
                   <form (ngSubmit)="onSubmit()" class="my-form">
                     <div class="form-group">
                         <label for="name">Nombre</label>
@@ -30,18 +31,19 @@
                     <button type="submit" class="btn btn-dark">Guardar</button>
                   </form>
                 </div>
-                <div class="col-6">
-                  <h2>Subir Archivo</h2>
+                <div class="col-1"></div>
+                <div class="col-5">
+                  <h2>Subir Imagen</h2>
                   <div>
-                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                    <input [hidden]="true" type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" >
+                    <button class="btn btn-dark" (click)="fileInput.click()">Seleccionar Imagen</button>
                   </div>
+                  <br>
                   @if(imageUrl){
-                    <div >
-                      <img [src]="imageUrl" alt="Uploaded Image">
-                    </div>
-                    
+                      <div class="image-box">
+                        <img  class="updateImage" [src]="imageUrl">
+                      </div>
                   }
-                  
                 </div>
               </div>
             </div>
@@ -55,7 +57,6 @@
             <div class="options-control-menu">
              
               <button class="btn btn-dark" (click)="openDialogCreateMenu()">Crear Nuevo Menu</button>
-             <!--  <app-modal-create-menu></app-modal-create-menu> -->
             </div> 
            <br>
             <div class="row" >

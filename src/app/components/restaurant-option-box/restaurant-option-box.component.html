@@ -1,7 +1,7 @@
 <div class="body">
     @if(!admin){
         <a [routerLink]="['/restaurante',restaurant.id]">
-            <img src={{restaurantService.getImgRestaurent(restaurant.imgIndex!)}} alt=""  class="my-img"> 
+            <img src={{restaurant.imageUrl}} alt=""  class="my-img"> 
             <br>
             <br>
             <h2>{{restaurant.name}}</h2>
@@ -9,7 +9,7 @@
        </a>
     }@else{
         <a [routerLink]="['/administrar-restaurante',restaurant.id]">
-            <img src={{restaurantService.getImgRestaurent(restaurant.imgIndex!)}} alt=""  class="my-img"> 
+            <img src={{restaurant.imageUrl}} alt=""  class="my-img"> 
             <br>
             <br>
             <h2>{{restaurant.name}}</h2>
