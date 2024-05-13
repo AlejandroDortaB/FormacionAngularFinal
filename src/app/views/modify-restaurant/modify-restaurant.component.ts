@@ -66,6 +66,7 @@ export class ModifyRestaurantComponent implements OnInit{
       capacity: this.capacity,
       description: this.description,
       imgIndex:this.currentRestaurant.imgIndex,
+      imageUrl: this.currentRestaurant.imageUrl
     }
     this.restaurantService.modifyRestaurantData(this.currentRestaurant.id!, restaurantModify).subscribe((restaurant:Restaurant)=>{
       this.currentRestaurant.name= restaurant.name;

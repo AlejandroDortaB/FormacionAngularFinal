@@ -1,0 +1,16 @@
+.header{
+    text-align: center;
+    font-size: xx-large;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.header-table{
+    font-size: large;
+    padding: 25px;
+    font-weight: 500;
+    border: 1px solid black
+}
+.item-style{
+    padding: 25px;
+    border: 1px solid black
+}

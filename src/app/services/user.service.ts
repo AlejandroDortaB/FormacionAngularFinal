@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Reservation } from '../interfaces/reservation';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,13 @@ export class UserService {
   deleteUserReservation(reservatioId:number):Observable<Object>{
     return this.http.delete("http://localhost:8080/api/v1/reservation/"+reservatioId)
   }
+  getAllUsers():Observable<User[]>{
+    return this.http.get<User[]>('http://localhost:8080/api/v1/user')
+  }
 
+  changeUserRole(userId:number, roleId:number){
+    this.http.put<User>('http://localhost:8080/api/v1/user/'+userId+"/role/"+roleId,null).subscribe((result:any)=>{
+      console.log("result",result)
+    })
+  }
 }

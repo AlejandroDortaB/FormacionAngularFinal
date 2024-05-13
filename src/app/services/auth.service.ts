@@ -56,4 +56,12 @@ export class AuthService {
     const decodedToken:any = jwtDecode(sessionStorage.getItem("token")!);
     return decodedToken.id;
   }
+  isUserAdmin():boolean {
+    const decodedToken:any = jwtDecode(sessionStorage.getItem("token")!);
+     
+     if(decodedToken.role == 2){ //es admin
+      return true
+     }
+     return false
+  }
 }

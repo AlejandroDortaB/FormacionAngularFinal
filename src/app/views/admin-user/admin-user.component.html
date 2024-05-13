@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<div class="header">
+    Administrar Usuarios
+ </div>
+<br>
+<div >
+    <div class="container">  
+        <div class="row item-box header-table">
+            <div class="col-6">Usuario</div>
+                <div class="col-3">Rol</div>
+                <div class="col-3">Eliminar</div>
+        </div>
+        @for (user of users; track $index) {
+            <div class="row item-box item-style">
+                <div class="col-6">{{user.username}}</div>
+                <div class="col-3">
+                    <mat-form-field>
+                        <mat-label>Selecciona el rol</mat-label>
+                        <mat-select [(value)]="user.role.name">
+                          <mat-option (click)="changeUserRole(user.id!,1)" value="Cliente" >Cliente</mat-option>
+                          <mat-option (click)="changeUserRole(user.id!,2)" value="Administrador">Administrador</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-3">
+                   <button class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        } 
+    </div>
+</div>
