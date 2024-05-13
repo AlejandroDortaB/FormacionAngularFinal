@@ -8,6 +8,7 @@ import { verifyTokenGuard } from './guards/verify-token.guard';
 import { AdminRestaurantComponent } from './views/admin-restaurant/admin-restaurant.component';
 import { ModifyRestaurantComponent } from './views/modify-restaurant/modify-restaurant.component';
 import { AdminUserComponent } from './views/admin-user/admin-user.component';
+import { ChatComponent } from './views/chat/chat.component';
 
 export const routes: Routes = [
     {path:"login",component:LoginComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path:"admin-restaurant",component:AdminRestaurantComponent,canActivate:[verifyTokenGuard]},
     {path:"administrar-restaurante/:id",component:ModifyRestaurantComponent,canActivate:[verifyTokenGuard]},
     {path:"admin-users",component:AdminUserComponent,canActivate:[verifyTokenGuard]},
+    {path:"chat-administrator",component:ChatComponent,canActivate:[verifyTokenGuard]},
     {path: '', component: LoginComponent },
     {path: '**', component: LoginComponent },
 ];

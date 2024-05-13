@@ -1,0 +1,23 @@
+<div class="body-conversation">
+    <div class="header">
+        Conversaciones
+    </div>
+    <div class="conversation-setion" >
+        @for (item of conversaciones; track $index) {
+            <div class="conversation-option row" (click)="selectedConversation(item)">
+                <div class="col-2">
+                    <img class="my-img" src="./assets/userIcon.png" alt="">
+                </div>
+                <div class="col-8">
+                    <div class="conversation-name">{{item}}</div>
+                    <div class="itemDescription"> Mensajeeee</div>
+                </div>
+                <div class="col-2">
+                   
+                </div>
+    
+            </div>
+        }
+    </div>
+ 
+</div>

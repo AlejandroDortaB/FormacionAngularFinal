@@ -7,6 +7,8 @@
       <a href="mis-reservas">Mis reservas</a>
       <a [hidden]="!this.authService.isUserAdmin()" href="admin-restaurant">Administrar Restaurantes</a>
       <a [hidden]="!this.authService.isUserAdmin()" href="admin-users">Administrar Usuarios</a>
+      <a [hidden]="!this.authService.isUserAdmin()" href="chat-administrator"> Chat Administrador</a>
+     
   </div>
   <div class="navbar-right">
       <a (click)="logOut()">Cerrar Sesion</a>
