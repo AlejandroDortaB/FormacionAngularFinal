@@ -9,6 +9,7 @@ import { Message } from '../interfaces/message';
   providedIn: 'root'
 })
 export class ChatService {
+  
 
   currentConversation:any=null;
   behaviorSubjectConversation = new BehaviorSubject<any>(this.currentConversation);
@@ -46,5 +47,13 @@ export class ChatService {
       coversationId:conversationId
     }
     return  this.http.post<Message>('http://localhost:8080/api/v1/message',body)
+  }
+
+  userIsSender(senderId:number):boolean {
+    const userId:number=this.authService.getUserIdFromToken();
+    if(senderId== userId){
+      return true
+    }
+    return false
   }
 }

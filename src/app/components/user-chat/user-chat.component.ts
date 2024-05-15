@@ -1,16 +1,16 @@
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { UserService } from '../../services/user.service';
 import { Conversation } from '../../interfaces/conversation';
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../interfaces/message';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-chat',
   standalone: true,
-  imports: [MatGridListModule,MatButtonModule,FormsModule],
+  imports: [MatGridListModule,MatButtonModule,FormsModule,CommonModule],
   templateUrl: './user-chat.component.html',
   styleUrl: './user-chat.component.css'
 })
@@ -58,5 +58,9 @@ export class UserChatComponent implements OnInit{
         })
       })
     }
+  }
+
+  userIsSender(senderId:number):boolean{
+    return this.chatService.userIsSender(senderId);
   }
 }

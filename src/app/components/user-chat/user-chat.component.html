@@ -6,8 +6,11 @@
     </div>
     <div class="chat-content container">
         @for (message of messages; track $index) {
-            <div class="message sended-message ">{{message.text}}</div>
-            <div class="message recive-message ">{{message.text}}</div>
+            <div [ngClass]="{'message':true,
+                'sended-message': userIsSender(message.senderId),
+                'recive-message': !userIsSender(message.senderId)}">
+                {{message.text}}
+            </div>
         }
     </div> 
     <footer class="footer">
