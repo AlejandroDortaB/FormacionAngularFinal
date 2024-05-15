@@ -3,6 +3,8 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { RestaurantOptionBoxComponent } from "../../components/restaurant-option-box/restaurant-option-box.component";
 import { RestaurantService } from '../../services/restaurant.service';
 import { Restaurant } from '../../interfaces/restaurant';
+import { UserChatComponent } from '../../components/user-chat/user-chat.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -10,12 +12,12 @@ import { Restaurant } from '../../interfaces/restaurant';
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [RestaurantOptionBoxComponent,NavbarComponent,]
+    imports: [RestaurantOptionBoxComponent,NavbarComponent, UserChatComponent]
 })
 export class HomeComponent implements OnInit{
-    
+    protected  authService= inject (AuthService); 
     private  restaurantService= inject (RestaurantService); 
-
+    protected chatIsOpen:boolean=false;
     restaurants:Restaurant[]=[];
 
     ngOnInit(): void {
@@ -30,4 +32,13 @@ export class HomeComponent implements OnInit{
           })
         
     }
+
+    
+    openChat(){
+        this.chatIsOpen=true
+      }
+  
+      closeChat() {
+        this.chatIsOpen=false
+      }
 }

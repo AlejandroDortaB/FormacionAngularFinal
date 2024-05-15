@@ -6,3 +6,13 @@
     font-size: xxx-large;
     padding: 50px;
 }
+.btn-chat-box{
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    padding: 20px;
+  }
+  .chat-btn{
+    border-radius: 100px;
+  }
+  

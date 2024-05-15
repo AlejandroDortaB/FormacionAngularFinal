@@ -1,0 +1,94 @@
+.user-chat{
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: white;
+    box-shadow: 8px 11px 20px -11px rgba(0,0,0,1);
+    border: 1px solid #333333;
+    border-radius: 10px 10px 0 0;
+}
+
+.close-btn{
+  color: rgb(255, 255, 255);
+  position: absolute;
+  right: 20px;
+  top:10px;
+  font-size: large;
+}
+.close-btn:hover{
+  cursor: pointer;
+  color: rgb(153, 153, 153);
+}
+.header{
+  border-radius: 9px 9px 0 0;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: large;
+  font-weight: 500;
+  border-bottom:  1px solid #333333;
+  color: white;
+  background-color: #333333;
+}
+/****************************body-chat**************************************/
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 370px; /* scroll */
+  min-height: 370px;
+}
+.sended-message{
+  background-color: white;
+}
+.recive-message{   
+  align-self: flex-end; /* Esto alineará el mensaje recibido a la derecha */
+  text-align: right; /* Alinea el texto a la derecha dentro del mensaje */
+  background-color: rgb(73, 73, 73);
+  color: white;
+}
+
+.footer {
+  margin-top: auto; 
+  background-color: #7e7e7e;
+  padding-left: 40px;
+}
+
+.send-button{
+  background-color:rgb(51, 51, 51);
+  border-radius: 10px;
+}
+
+.message{
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 10px;
+  box-shadow: 8px 11px 20px -11px rgba(0,0,0,1);
+  max-width: 800px;
+}
+
+/*-------------------------------------Scroll--------------------------*/
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(128, 128, 128, 0); 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 102, 102, 0.192); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}

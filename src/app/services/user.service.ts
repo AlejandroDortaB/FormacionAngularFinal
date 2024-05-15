@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Reservation } from '../interfaces/reservation';
 import { User } from '../interfaces/user';
+import { Conversation } from '../interfaces/conversation';
 
 @Injectable({
   providedIn: 'root'
