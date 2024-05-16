@@ -3,14 +3,14 @@
         Conversaciones
     </div>
     <div class="conversation-setion" >
-        @for (item of conversaciones; track $index) {
-            <div class="conversation-option row" (click)="selectedConversation(item)">
+        @for (conversation of conversations; track $index) {
+            <div class="conversation-option row" (click)="selectedConversation(conversation)">
                 <div class="col-2">
                     <img class="my-img" src="./assets/userIcon.png" alt="">
                 </div>
                 <div class="col-8">
-                    <div class="conversation-name">{{item}}</div>
-                    <div class="itemDescription"> Mensajeeee</div>
+                    <div class="conversation-name">{{getOtherUserName(conversation)}}</div>
+                    <div class="itemDescription"> {{getLastMessageConservation(conversation)}}</div>
                 </div>
                 <div class="col-2">
                    

@@ -1,6 +1,6 @@
 export interface Message {
     id?:number,
-    senderId:number,
+    emiterId:number,
     text:string,
     view:boolean
 }

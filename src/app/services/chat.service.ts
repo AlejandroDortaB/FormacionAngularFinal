@@ -4,17 +4,21 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Conversation } from '../interfaces/conversation';
 import { AuthService } from './auth.service';
 import { Message } from '../interfaces/message';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  
-
-  currentConversation:any=null;
-  behaviorSubjectConversation = new BehaviorSubject<any>(this.currentConversation);
-  constructor(private http: HttpClient) { }
   authService= inject (AuthService);
+
+  currentConversation:Conversation | null = null ;
+  behaviorSubjectConversation:BehaviorSubject<Conversation| null>; 
+  
+  constructor(private http: HttpClient) { 
+    this.behaviorSubjectConversation = new BehaviorSubject<Conversation | null>(this.currentConversation);
+  }
+
 
   setCurrentChat(seletedConvesation:any){
     this.currentConversation=seletedConvesation;
@@ -55,5 +59,17 @@ export class ChatService {
       return true
     }
     return false
+  }
+
+  getOtherUserName(conversation:Conversation):string{
+    const userId:number=this.authService.getUserIdFromToken();
+    if(conversation){
+      for(let i:number=0;i < conversation.users.length;i++){
+        if(conversation.users[0].id != userId){
+          return conversation.users[0].username;
+        }
+      } 
+    }
+    return ""
   }
 }

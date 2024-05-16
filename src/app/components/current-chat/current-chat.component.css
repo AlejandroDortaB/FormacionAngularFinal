@@ -53,10 +53,11 @@
 }
 .sended-message{
     background-color: white;
-}
-.recive-message{   
     align-self: flex-end; /* Esto alineará el mensaje recibido a la derecha */
     text-align: right; /* Alinea el texto a la derecha dentro del mensaje */
+}
+.recive-message{   
+    
     background-color: rgb(73, 73, 73);
     color: white;
 }
