@@ -14,36 +14,52 @@ import { Stomp } from '@stomp/stompjs';
 export class ChatService {
   authService= inject (AuthService);
   private stompClient: any
-  urlSocket= '//localhost:8080/api/v1/chat-socket/test' ;
   currentConversation:Conversation | null = null ;
-  behaviorSubjectConversation:BehaviorSubject<Conversation| null>; 
+  behaviorSubjectCurrentConversation:BehaviorSubject<Conversation| null>;
+  behaviorSubjectConversations:BehaviorSubject<Conversation[]| null>; 
   behaviorSubjectNewMessage:BehaviorSubject<Message| null>; 
+  allUserConversations:Conversation[]=[];
   
   constructor(private http: HttpClient) { 
-    this.behaviorSubjectConversation = new BehaviorSubject<Conversation | null>(this.currentConversation);
+    this.behaviorSubjectCurrentConversation = new BehaviorSubject<Conversation | null>(this.currentConversation);
     this.behaviorSubjectNewMessage = new BehaviorSubject<Message | null>(null);
+    this.behaviorSubjectConversations = new BehaviorSubject<Conversation []| null>(this.allUserConversations);
+    this.getAllconversation().subscribe((conversations:Conversation[])=>{
+      this.allUserConversations = conversations
+      this.behaviorSubjectConversations.next(this.allUserConversations);
+    })
     this. initConnenctionSocket();
   }
 
   setCurrentChat(seletedConvesation:any){
     this.currentConversation=seletedConvesation;
-    this.behaviorSubjectConversation.next(this.currentConversation);
+    this.behaviorSubjectCurrentConversation.next(this.currentConversation);
   }
 
   getObservableConversation():Observable<any> {
-    return this.behaviorSubjectConversation.asObservable();
+    return this.behaviorSubjectCurrentConversation.asObservable();
   }
 
-  newMessages(message:Message){
-    if(this.currentConversation){
+  newMessages(message:Message,roomId:string){
+    if(this.currentConversation?.id?.toString() == roomId){
       this.currentConversation!.menssages.push(message);  
     }
-    
+    else{
+      this.allUserConversations.forEach((conversation)=>{
+        if(conversation.id?.toString()==roomId){
+          conversation.menssages.push(message);
+        }
+      })
+    }
     this.behaviorSubjectNewMessage.next(message);
   }
 
   getObservableNewMessage():Observable<any>{
     return this.behaviorSubjectNewMessage.asObservable();
+  }
+
+  getObservableUserConversation(){
+    return this.behaviorSubjectConversations.asObservable();
   }
 
   getAllconversation():Observable<Conversation[]>{
@@ -89,27 +105,29 @@ export class ChatService {
     }
     return ""
   }
+  
 
 
   /**---------------------Sockets -----------------------------*/
   initConnenctionSocket() {
-    
-    //const socket= new SockJS(this.urlSocket);
-    this.stompClient = Stomp.over(this.socketFactory())
+    let urlSocket= '//localhost:8080/api/v1/chat-socket/test' ;
+    const socket = new SockJS(urlSocket);
+    this.stompClient = Stomp.over(socket);
+    this.stompClient.reconnectDelay = 5000;
+    if (!this.stompClient.active) {
+      this.stompClient.activate();
+    }
   }
-  //función de fábrica para SockJS
-  socketFactory = () => {
-    return new SockJS(this.urlSocket);
-  };  
+   joinRoom(roomId: string): void {
+   console.log("joinRoom");
+   this.stompClient.subscribe(`/topic/${roomId}`, (message: any) => {
+      const messageContent = JSON.parse(message.body);
 
-  joinRoom(roomId:string){
-    this.stompClient.connect({},()=>{
-        this.stompClient.subscribe("/topic/"+roomId, (message:any)=>{
-        const messageContent= JSON.parse(message.body)
-        console.log(messageContent)
-        this.newMessages(messageContent);
-      })
-    })
+      console.log(roomId);
+      console.log(messageContent);
+      this.newMessages(messageContent,roomId);
+    });
+   
   }
   
   sendMessageSocket(roomId:string,message:string,user:string){

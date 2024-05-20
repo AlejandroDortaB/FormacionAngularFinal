@@ -18,7 +18,7 @@
                     
             </div>
         </div>
-        <div class="chat-content container">
+        <div class="chat-content container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
             @for (message of this.currentConversation.menssages; track $index) {
                 <div [ngClass]="{'message':true,
                     'sended-message': userIsSender(message.emiterId),

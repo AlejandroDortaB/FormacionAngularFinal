@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import { ChatService } from '../../services/chat.service';
@@ -19,13 +19,18 @@ export class CurrentChatComponent implements OnInit{
   protected text:string="";
   currentConversation:Conversation | null = null;
 
+  @ViewChild('scrollMe')
+  private myScrollContainer!: ElementRef;
+
     ngOnInit(): void {
+      this.chatService.getAllconversation().subscribe((conversations:Conversation[])=>{
+        for(let i=0; i<conversations.length ;i++){
+          this.chatService.joinRoom(conversations[i].id!.toString()); // establecemos la conexion de todos los chats
+        }
+      })
+
       this.chatService.getObservableConversation().subscribe((conversationSelected:any)=>{
           this.currentConversation=conversationSelected;
-          console.log("hola")
-          if(this.currentConversation){
-          }
-          this.chatService.joinRoom("1");
       })
     }
 
@@ -46,9 +51,23 @@ export class CurrentChatComponent implements OnInit{
         //enviar mensaje
         this.chatService.sendMessage(this.currentConversation.id!,this.text)
         this.text="";
+        setTimeout(()=>{
+          this.scrollToBottom()
+        },100)
+        
       }
     }
     sendMessageSocket(){
       this.chatService.sendMessageSocket("ABC",'HOLA',"1")
     }
+
+    scrollToBottom(): void {
+      console.log("scrollToBottom");
+      try{
+        this.myScrollContainer!.nativeElement.scrollTop = this.myScrollContainer!.nativeElement.scrollHeight;    
+      }catch(error:any){
+
+      }
+                 
+  }
 }

@@ -24,11 +24,10 @@ export class UserChatComponent implements OnInit{
   protected text:string="";
 
   ngOnInit(): void {
-    this.chatService.joinRoom("1");
     this.chatService.getAllconversation().subscribe((conversations:Conversation[])=>{
       if(conversations.length > 0){
         this.conversations=conversations;
-       // this.chatService.joinRoom(this.conversations[0]!.id!.toString());
+       this.chatService.joinRoom(this.conversations[0]!.id!.toString());
         this.messages= this.conversations[0].menssages;
       }
       else{

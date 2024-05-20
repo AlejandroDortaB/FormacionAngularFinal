@@ -19,9 +19,8 @@ export class ChatConversacionesComponent implements OnInit{
   } 
 
   ngOnInit(): void {
-    this.chatService.getAllconversation().subscribe((conversations:Conversation[])=>{
-      console.log("conversations",conversations)
-      this.conversations=conversations
+    this.chatService.getObservableUserConversation().subscribe((allUserConversations)=>{
+      this.conversations = allUserConversations!;
     })
   }
 
