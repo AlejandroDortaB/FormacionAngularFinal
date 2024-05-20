@@ -24,13 +24,21 @@ export class UserChatComponent implements OnInit{
   protected text:string="";
 
   ngOnInit(): void {
+    this.chatService.joinRoom("1");
     this.chatService.getAllconversation().subscribe((conversations:Conversation[])=>{
       if(conversations.length > 0){
         this.conversations=conversations;
-        console.log("this.conversations",this.conversations)
+       // this.chatService.joinRoom(this.conversations[0]!.id!.toString());
         this.messages= this.conversations[0].menssages;
-        console.log("this.messages::",this.messages)
       }
+      else{
+        this.chatService.createNewConversation().subscribe((conversation:Conversation)=>{
+          this.conversations.push(conversation);
+        })
+      }
+    })
+    this.chatService.getObservableNewMessage().subscribe((messages:Message)=>{
+      this.messages.push(messages);
     })
   }
   
@@ -39,26 +47,13 @@ export class UserChatComponent implements OnInit{
   }
 
   sendMessage() {
-    console.log(this.conversations.length)
     if(this.conversations.length > 0){
       //enviar mensaje
-      this.chatService.sendMessage(this.conversations[0].id!,this.text).subscribe((message:Message)=>{
-        this.text="";
-        this.messages.push(message);
-      })
-    }
-    else{
-      //Crear la conversacion y luego enviar el mensaje
-      this.chatService.createNewConversation().subscribe((conversation:Conversation)=>{
-        this.conversations.push(conversation);
-        console.log("conversation",conversation);
-        this.chatService.sendMessage(this.conversations[0].id!,this.text).subscribe((message:Message)=>{
-          this.text="";
-          this.messages.push(message);
-        })
-      })
+      this.chatService.sendMessage(this.conversations[0].id!,this.text);
+      this.text="";
     }
   }
+  
 
   userIsSender(senderId:number):boolean{
     return this.chatService.userIsSender(senderId);

@@ -22,6 +22,10 @@ export class CurrentChatComponent implements OnInit{
     ngOnInit(): void {
       this.chatService.getObservableConversation().subscribe((conversationSelected:any)=>{
           this.currentConversation=conversationSelected;
+          console.log("hola")
+          if(this.currentConversation){
+          }
+          this.chatService.joinRoom("1");
       })
     }
 
@@ -40,10 +44,11 @@ export class CurrentChatComponent implements OnInit{
     sendMessage() {
       if(this.currentConversation){
         //enviar mensaje
-        this.chatService.sendMessage(this.currentConversation.id!,this.text).subscribe((message:Message)=>{
-          this.text="";
-          this.currentConversation!.menssages.push(message);
-        })
+        this.chatService.sendMessage(this.currentConversation.id!,this.text)
+        this.text="";
       }
+    }
+    sendMessageSocket(){
+      this.chatService.sendMessageSocket("ABC",'HOLA',"1")
     }
 }

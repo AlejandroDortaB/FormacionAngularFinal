@@ -5,20 +5,25 @@ import { Conversation } from '../interfaces/conversation';
 import { AuthService } from './auth.service';
 import { Message } from '../interfaces/message';
 import { User } from '../interfaces/user';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   authService= inject (AuthService);
-
+  private stompClient: any
+  urlSocket= '//localhost:8080/api/v1/chat-socket/test' ;
   currentConversation:Conversation | null = null ;
   behaviorSubjectConversation:BehaviorSubject<Conversation| null>; 
+  behaviorSubjectNewMessage:BehaviorSubject<Message| null>; 
   
   constructor(private http: HttpClient) { 
     this.behaviorSubjectConversation = new BehaviorSubject<Conversation | null>(this.currentConversation);
+    this.behaviorSubjectNewMessage = new BehaviorSubject<Message | null>(null);
+    this. initConnenctionSocket();
   }
-
 
   setCurrentChat(seletedConvesation:any){
     this.currentConversation=seletedConvesation;
@@ -27,6 +32,18 @@ export class ChatService {
 
   getObservableConversation():Observable<any> {
     return this.behaviorSubjectConversation.asObservable();
+  }
+
+  newMessages(message:Message){
+    if(this.currentConversation){
+      this.currentConversation!.menssages.push(message);  
+    }
+    
+    this.behaviorSubjectNewMessage.next(message);
+  }
+
+  getObservableNewMessage():Observable<any>{
+    return this.behaviorSubjectNewMessage.asObservable();
   }
 
   getAllconversation():Observable<Conversation[]>{
@@ -42,7 +59,7 @@ export class ChatService {
     return  this.http.post<Conversation>('http://localhost:8080/api/v1/conversation',body)
   }
 
-  sendMessage(conversationId:number,text:string):Observable<Message>{
+  sendMessage(conversationId:number,text:string){
     const userId:number=this.authService.getUserIdFromToken();
     const body={
       text: text,
@@ -50,7 +67,7 @@ export class ChatService {
       emiterId:userId,
       coversationId:conversationId
     }
-    return  this.http.post<Message>('http://localhost:8080/api/v1/message',body)
+    this.stompClient.send("/app/chat/"+conversationId,{},JSON.stringify(body))
   }
 
   userIsSender(senderId:number):boolean {
@@ -71,5 +88,31 @@ export class ChatService {
       } 
     }
     return ""
+  }
+
+
+  /**---------------------Sockets -----------------------------*/
+  initConnenctionSocket() {
+    
+    //const socket= new SockJS(this.urlSocket);
+    this.stompClient = Stomp.over(this.socketFactory())
+  }
+  //función de fábrica para SockJS
+  socketFactory = () => {
+    return new SockJS(this.urlSocket);
+  };  
+
+  joinRoom(roomId:string){
+    this.stompClient.connect({},()=>{
+        this.stompClient.subscribe("/topic/"+roomId, (message:any)=>{
+        const messageContent= JSON.parse(message.body)
+        console.log(messageContent)
+        this.newMessages(messageContent);
+      })
+    })
+  }
+  
+  sendMessageSocket(roomId:string,message:string,user:string){
+    this.stompClient.send("/app/chat/"+roomId,{},JSON.stringify({message:message,user:user}))
   }
 }
