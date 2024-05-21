@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Conversation } from '../../interfaces/conversation';
@@ -22,6 +22,8 @@ export class UserChatComponent implements OnInit{
   protected conversations:Conversation[] = []; 
   protected messages:Message[]=[]
   protected text:string="";
+  @ViewChild('scrollMe')
+  private myScrollContainer!: ElementRef;
 
   ngOnInit(): void {
     this.chatService.getAllconversation().subscribe((conversations:Conversation[])=>{
@@ -50,11 +52,21 @@ export class UserChatComponent implements OnInit{
       //enviar mensaje
       this.chatService.sendMessage(this.conversations[0].id!,this.text);
       this.text="";
+      setTimeout(()=>{
+        this.scrollToBottom()
+      },100)
     }
   }
-  
 
   userIsSender(senderId:number):boolean{
     return this.chatService.userIsSender(senderId);
+  }
+
+  scrollToBottom(): void {
+    console.log("scrollToBottom");
+    try{
+      this.myScrollContainer!.nativeElement.scrollTop = this.myScrollContainer!.nativeElement.scrollHeight;    
+    }catch(error:any){
+    }           
   }
 }

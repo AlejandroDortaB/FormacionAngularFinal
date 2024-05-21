@@ -66,8 +66,6 @@ export class CurrentChatComponent implements OnInit{
       try{
         this.myScrollContainer!.nativeElement.scrollTop = this.myScrollContainer!.nativeElement.scrollHeight;    
       }catch(error:any){
-
-      }
-                 
-  }
+      }           
+    }
 }

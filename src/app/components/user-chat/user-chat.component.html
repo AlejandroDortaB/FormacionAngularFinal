@@ -4,7 +4,7 @@
     <div class="header">
         Contactar con el Administrador
     </div>
-    <div class="chat-content container" >
+    <div class="chat-content container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         @for (message of messages; track $index) {
             <div [ngClass]="{'message':true,
                 'sended-message': userIsSender(message.emiterId),
