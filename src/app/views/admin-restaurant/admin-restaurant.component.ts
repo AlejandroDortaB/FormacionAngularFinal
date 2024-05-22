@@ -6,6 +6,9 @@ import { RestaurantOptionBoxComponent } from "../../components/restaurant-option
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { UserChatComponent } from "../../components/user-chat/user-chat.component";
+import { ModalCreateRestaurantComponent } from '../../components/modal-create-restaurant/modal-create-restaurant.component';
+import { Menu } from '../../interfaces/menu';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -18,8 +21,11 @@ import { UserChatComponent } from "../../components/user-chat/user-chat.componen
 export class AdminRestaurantComponent implements OnInit{
   private  userService= inject (UserService); 
   protected  authService= inject (AuthService);
+  protected  restarantService= inject (RestaurantService);
   protected chatIsOpen:boolean=false;
   restaurants:Restaurant[]=[];
+
+  constructor(public dialog: MatDialog){}
 
   ngOnInit(): void {
     this.userService.getUserRestaurants().subscribe({
@@ -38,5 +44,28 @@ export class AdminRestaurantComponent implements OnInit{
 
   closeChat() {
     this.chatIsOpen=false
+  }
+
+  openDialogCreateRestarant() {
+    const dialogRef = this.dialog.open(ModalCreateRestaurantComponent);
+    dialogRef.afterClosed().subscribe((data:any) => {
+      if(data){ 
+        const restaurant:Restaurant={
+          name: data.name,
+          capacity: data.capacity,
+          description: data.description,
+          enable: false
+        }
+        this.restarantService.createRestaurant(data).subscribe((newRestaurant:Restaurant)=>{
+          console.log("newRestaurant",newRestaurant);
+          //TODO colocar la imgen a elo restaurante creado
+         
+        });
+        //Crear restarante 
+        console.log("data",data)
+      }
+   
+     });
+    
   }
 }

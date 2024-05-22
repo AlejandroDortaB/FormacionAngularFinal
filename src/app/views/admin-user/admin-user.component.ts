@@ -41,9 +41,7 @@ export class AdminUserComponent implements OnInit{
     this.userService.changeUserRole(user.id!,roleId);
     user.role.id=roleId;
   }
-  createRestaurant(ownerId:number){
-    this.restaurantService.createRestaurant(ownerId)
-  }
+  
 
 
 

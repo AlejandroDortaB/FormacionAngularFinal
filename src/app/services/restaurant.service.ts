@@ -25,18 +25,9 @@ export class RestaurantService {
   constructor(private http: HttpClient) {
    }
 
-   createRestaurant(ownerId:number){
-    const body:any={
-        name: "Nuevo Restaurante",
-        capacity: 50,
-        description: "",
-        userId: ownerId,
-        enable: 0
-    }
-    return this.http.post<Restaurant>('http://localhost:8080/api/v1/restaurant', body).subscribe((newRestaurant:Restaurant)=>{
-      console.log("newRestaurant",newRestaurant)
-      this.messageService.generateMessage("Restaurante creado con exito");
-    });
+   createRestaurant(body:Restaurant){
+    
+    return this.http.post<Restaurant>('http://localhost:8080/api/v1/restaurant', body)
    }
 
   getImgRestaurent(index:number):string{
@@ -59,7 +50,7 @@ export class RestaurantService {
     const formData: FormData = new FormData();
     formData.append('file', imageFile, imageFile.name);
     return this.http.post('http://localhost:8080/api/v1/restaurant/' + restaurantId + '/upload-image', formData);
-}
+  }
   
 
    /*********************************************************Reservation************************ */
