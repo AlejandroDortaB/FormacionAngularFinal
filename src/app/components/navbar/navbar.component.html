@@ -3,10 +3,10 @@
       <img width="50px" src="./assets/logo.avif" alt="Logo">
   </div>
   <div class="navbar-left">
-      <a href="restaurantes">Restaurantes</a>
-      <a href="mis-reservas">Mis reservas</a>
-      <a [hidden]="!this.authService.isUserAdmin()" href="admin-restaurant">Administrar Restaurantes</a>
-      <a [hidden]="!this.authService.isUserAdmin()" href="admin-users">Administrar Usuarios</a>
+      <a  href="restaurantes">Restaurantes</a>
+      <a  [hidden]="!this.authService.isUserClient()" href="mis-reservas">Mis reservas</a>
+      <a [hidden]="!this.authService.isUserOwner()" href="admin-restaurant">Administrar Restaurantes</a>
+      <a [hidden]="!this.authService.isUserAdmin()" href="admin-users">Administrar</a>
       <a [hidden]="!this.authService.isUserAdmin()" href="chat-administrator"> Chat Administrador</a>
      
   </div>

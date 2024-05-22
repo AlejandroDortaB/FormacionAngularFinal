@@ -3,6 +3,9 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { RestaurantService } from '../../services/restaurant.service';
 import { Restaurant } from '../../interfaces/restaurant';
 import { RestaurantOptionBoxComponent } from "../../components/restaurant-option-box/restaurant-option-box.component";
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { UserChatComponent } from "../../components/user-chat/user-chat.component";
 
 
 @Component({
@@ -10,15 +13,16 @@ import { RestaurantOptionBoxComponent } from "../../components/restaurant-option
     standalone: true,
     templateUrl: './admin-restaurant.component.html',
     styleUrl: './admin-restaurant.component.css',
-    imports: [NavbarComponent, RestaurantOptionBoxComponent]
+    imports: [NavbarComponent, RestaurantOptionBoxComponent, UserChatComponent]
 })
 export class AdminRestaurantComponent implements OnInit{
-  private  restaurantService= inject (RestaurantService); 
-
+  private  userService= inject (UserService); 
+  protected  authService= inject (AuthService);
+  protected chatIsOpen:boolean=false;
   restaurants:Restaurant[]=[];
 
   ngOnInit(): void {
-    this.restaurantService.getAllRestaurant().subscribe({
+    this.userService.getUserRestaurants().subscribe({
        next:(result:Restaurant[])=>{
         this.restaurants = result;
         console.log(this.restaurants)
@@ -27,6 +31,12 @@ export class AdminRestaurantComponent implements OnInit{
         
        }
      })
-   
+  }
+  openChat(){
+    this.chatIsOpen=true
+  }
+
+  closeChat() {
+    this.chatIsOpen=false
   }
 }

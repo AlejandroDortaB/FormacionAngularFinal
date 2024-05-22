@@ -14,3 +14,11 @@
     padding: 25px;
     border: 1px solid black
 }
+.username{
+    font-size: large;
+    font-weight: 500;
+    font-style: italic;
+}
+.row{
+    margin-right: 5px;
+}

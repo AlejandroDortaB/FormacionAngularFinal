@@ -64,4 +64,20 @@ export class AuthService {
      }
      return false
   }
+  isUserOwner():boolean {
+    const decodedToken:any = jwtDecode(sessionStorage.getItem("token")!);
+     
+     if(decodedToken.role == 3){ //es propietario
+      return true
+     }
+     return false
+  }
+  isUserClient():boolean {
+    const decodedToken:any = jwtDecode(sessionStorage.getItem("token")!);
+     
+     if(decodedToken.role == 1){ //es propietario
+      return true
+     }
+     return false
+  }
 }

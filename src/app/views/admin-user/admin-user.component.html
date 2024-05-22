@@ -1,31 +1,47 @@
 <app-navbar></app-navbar>
 <div class="header">
-    Administrar Usuarios
+    Administrar
  </div>
 <br>
-<div >
-    <div class="container">  
-        <div class="row item-box header-table">
-            <div class="col-6">Usuario</div>
-                <div class="col-3">Rol</div>
-                <div class="col-3">Eliminar</div>
-        </div>
-        @for (user of users; track $index) {
-            <div class="row item-box item-style">
-                <div class="col-6">{{user.username}}</div>
-                <div class="col-3">
-                    <mat-form-field>
-                        <mat-label>Selecciona el rol</mat-label>
-                        <mat-select [(value)]="user.role.name">
-                          <mat-option (click)="changeUserRole(user.id!,1)" value="Cliente" >Cliente</mat-option>
-                          <mat-option (click)="changeUserRole(user.id!,2)" value="Administrador">Administrador</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-                <div class="col-3">
-                   <button class="btn btn-danger">Eliminar</button>
-                </div>
-            </div>
-        } 
+<div class="container">  
+<mat-tab-group>
+  <mat-tab label="Usuarios">
+    <div class="row item-box header-table">
+      <div class="col-6">Usuario</div>
+      <div class="col-3">Rol</div>
+      <div class="col-2">Eliminar</div>
     </div>
+    @for (user of users; track $index) {
+      <div class="row item-box item-style">
+        <div class="col-6 username">{{user.username}}</div>
+        <div class="col-3">
+            <mat-form-field>
+              <mat-label>Selecciona el rol</mat-label>
+              <mat-select [(value)]="user.role.name">
+              <mat-option (click)="changeUserRole(user,1)" value="Cliente" >Cliente</mat-option>
+              <mat-option (click)="changeUserRole(user,2)" value="Administrador">Administrador</mat-option>
+              <mat-option (click)="changeUserRole(user,3)" value="Dueño">Dueño</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-2">
+             <button class="btn btn-danger">Eliminar</button>
+        </div>  
+      </div>
+    }    
+  </mat-tab>
+  <mat-tab label="Restaurantes pendiente de aprobar">
+    <br>
+    <div class="row">
+      @for (restaurant of restaurants; track $index) {
+          <div [hidden]="restaurant.enable" class="col-4 ">
+              <app-restaurant-option-box  [restaurant]="restaurant" ></app-restaurant-option-box>
+          </div>
+      }   
+    </div> 
+  </mat-tab>
+</mat-tab-group>
 </div>
+
+
+

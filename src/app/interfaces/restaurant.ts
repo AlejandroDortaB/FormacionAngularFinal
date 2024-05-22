@@ -8,6 +8,7 @@ export interface Restaurant {
     description: string;
     imgIndex?: number;
     imageUrl?: string;
+    enable: boolean;
     menus?: Menu[];
     reservations?: Reservation[];
   }

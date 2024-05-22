@@ -13,7 +13,7 @@ import { ModalCreateMenuComponent } from "../../components/modal-create-menu/mod
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { Menu } from '../../interfaces/menu';
 import { FoodPlates } from '../../interfaces/food-plates';
-import { Reservation } from '../../interfaces/reservation';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-modify-restaurant',
@@ -29,7 +29,7 @@ import { Reservation } from '../../interfaces/reservation';
         MatSelectModule, 
         MenuItemBoxComponent, 
         ModalCreateMenuComponent,
-        MatDialogModule]
+        MatDialogModule,MatSlideToggleModule]
 })
 export class ModifyRestaurantComponent implements OnInit{
 
@@ -38,6 +38,7 @@ export class ModifyRestaurantComponent implements OnInit{
   protected name:string="";
   protected description:string="";
   protected capacity:number=0;
+  protected enbleRestaurant:boolean=true;
 
   protected reservations:any;
 
@@ -52,6 +53,7 @@ export class ModifyRestaurantComponent implements OnInit{
      this.description = this.currentRestaurant.description;
      this.capacity= restaurant.capacity;
      this.imageUrl= this.currentRestaurant.imageUrl;
+     this.enbleRestaurant= restaurant.enable
     })
       this.restaurantService.getRestaurantReservations(this.route.snapshot.params['id']).subscribe((result)=>{
         console.log("result",result)
@@ -66,7 +68,8 @@ export class ModifyRestaurantComponent implements OnInit{
       capacity: this.capacity,
       description: this.description,
       imgIndex:this.currentRestaurant.imgIndex,
-      imageUrl: this.currentRestaurant.imageUrl
+      imageUrl: this.currentRestaurant.imageUrl,
+      enable:true
     }
     this.restaurantService.modifyRestaurantData(this.currentRestaurant.id!, restaurantModify).subscribe((restaurant:Restaurant)=>{
       this.currentRestaurant.name= restaurant.name;
